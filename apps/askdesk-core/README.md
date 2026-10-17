@@ -61,6 +61,37 @@ Expected Response:
 }
 ```
 
+#### Test User Registration (`POST /auth/register`)
+
+```bash
+curl -X POST http://127.0.0.1:4000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "alex@example.com", "password": "SecureP@ssword123!", "name": "Alex"}'
+```
+
+Expected Response (`201 Created`):
+
+```json
+{
+  "message": "User registered successfully",
+  "user": {
+    "id": "67b095...",
+    "email": "alex@example.com",
+    "name": "Alex",
+    "createdAt": "2026-10-17T05:35:00.000Z"
+  }
+}
+```
+
+Repeat the same command to verify duplicate email protection (`409 Conflict`):
+
+```json
+{
+  "error": "Conflict",
+  "message": "An account with this email address already exists"
+}
+```
+
 ---
 
 ## 🛡 Quality Checks
