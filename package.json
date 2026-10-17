@@ -4,8 +4,12 @@
   "private": true,
   "description": "AskDesk: AI-powered technical support helpdesk with gateway, tenant isolation, and prompt evaluation",
   "scripts": {
+    "dev": "pnpm --parallel --filter askdesk-core --filter askdesk-gateway --filter askdesk-chat --filter askdesk-dashboard dev",
+    "dev:all": "pnpm --parallel --filter askdesk-core --filter askdesk-gateway --filter askdesk-chat --filter askdesk-dashboard dev",
     "dev:core": "pnpm --filter askdesk-core dev",
     "dev:gateway": "pnpm --filter askdesk-gateway dev",
+    "dev:chat": "pnpm --filter askdesk-chat dev",
+    "dev:dashboard": "pnpm --filter askdesk-dashboard dev",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "test:coverage": "pnpm -r run test:coverage",
@@ -13,6 +17,7 @@
     "typecheck": "pnpm -r run typecheck",
     "promptproof": "node packages/promptproof/dist/bin/promptproof.js run",
     "promptproof:matrix": "node packages/promptproof/dist/bin/promptproof.js matrix",
+    "bench:load": "node benchmarks/load-sim.mjs",
     "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\"",
     "prepare": "husky"

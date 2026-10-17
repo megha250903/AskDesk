@@ -110,27 +110,24 @@ cp apps/askdesk-chat/.env.example apps/askdesk-chat/.env
 ### 3. Run Development Services
 
 ```bash
-# Start Core Control Plane (port 4000)
-pnpm --filter askdesk-core dev
+# Option A: Start all 4 microservices concurrently (Recommended)
+pnpm dev:all
 
-# Start AI Gateway (port 4001)
-pnpm --filter askdesk-gateway dev
-
-# Start Chat & RAG Retrieval Service (port 4002)
-pnpm --filter askdesk-chat dev
-
-# Start Operator Dashboard (port 5173)
-pnpm --filter askdesk-dashboard dev
+# Option B: Run services individually
+pnpm dev:core       # Core Control Plane (port 4000)
+pnpm dev:gateway    # AI Gateway (port 4001)
+pnpm dev:chat       # Chat & RAG Retrieval (port 4002)
+pnpm dev:dashboard  # Operator Dashboard (port 5173)
 ```
 
 ---
 
 ## 🧪 Testing & Verification
 
-The repository contains comprehensive unit and integration tests across all microservices using Vitest:
+The repository contains comprehensive unit, integration, and E2E tests across all microservices using Vitest:
 
 ```bash
-# Run all tests across the monorepo (106 tests)
+# Run all tests across the monorepo (108 tests)
 pnpm test
 
 # Run tests with code coverage report
@@ -142,6 +139,9 @@ pnpm promptproof
 # Run multi-model comparison matrix (Fast vs Smart models)
 pnpm promptproof:matrix
 
+# Run high-throughput concurrency & latency benchmark
+pnpm bench:load
+
 # Run strict type checking across all packages
 pnpm typecheck
 
@@ -150,6 +150,20 @@ pnpm lint
 
 # Check code formatting with Prettier
 pnpm format:check
+```
+
+---
+
+## 🐳 Production Deployment (Docker Compose)
+
+The entire production stack can be launched via Docker Compose:
+
+```bash
+# Build and start all services with health checks
+docker compose -f docker-compose.prod.yml up -d --build
+
+# Monitor running containers
+docker compose -f docker-compose.prod.yml ps
 ```
 
 ---
