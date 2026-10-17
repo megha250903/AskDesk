@@ -2,24 +2,89 @@
 
 The core control-plane microservice for AskDesk. Responsible for user authentication, session/token management, organization multi-tenancy, RBAC guards, audit trails, and billing integrations.
 
-## Features
+---
 
-- **Fastify HTTP framework**: Lightweight, schema-driven, high throughput
-- **Strict TypeScript**: Full strictness enabled
-- **Zod Environment Validation**: Fail-fast configuration loading
-- **Vitest**: Fast unit and integration tests with coverage
-- **ESLint & Prettier**: Automated linting and formatting
+## 🚀 Features & Architecture
 
-## Scripts
+- **Fastify HTTP Framework**: Lightweight, schema-driven serialization and high throughput.
+- **Strict TypeScript**: `noImplicitAny`, `strictNullChecks`, `noUncheckedIndexedAccess`, `NodeNext` modules.
+- **Zod Environment Loader**: Fail-fast validation with informative errors before server boot.
+- **Vitest Testing Suite**: Blazing fast in-memory integration and unit tests using `app.inject()`.
+- **Zero-Docker Local First**: Runs natively on Node.js + local MongoDB.
 
-- `pnpm dev`: Start development server with live reload (`tsx`)
-- `pnpm build`: Compile TypeScript into `dist/`
-- `pnpm start`: Run production build
-- `pnpm test`: Execute test suite
-- `pnpm test:coverage`: Generate test coverage reports
-- `pnpm lint`: Run ESLint checks
-- `pnpm typecheck`: Run TypeScript compiler checks without emitting code
+---
 
-## Routes (Day 1)
+## 🏃 Running Locally
 
-- `GET /health`: Returns service health status, uptime, and timestamp.
+```bash
+# Start development server with live reload (tsx)
+pnpm dev
+
+# Build production TypeScript into dist/
+pnpm build
+
+# Start production build
+pnpm start
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run Vitest test suite
+pnpm test
+
+# Run tests with V8 coverage report
+pnpm test:coverage
+
+# Run tests in watch mode
+pnpm test:watch
+```
+
+### Manual Testing
+
+Start the server with `pnpm dev`, then hit the health route:
+
+```bash
+curl http://127.0.0.1:4000/health
+```
+
+Expected Response:
+
+```json
+{
+  "status": "ok",
+  "service": "askdesk-core",
+  "uptime": 2.14,
+  "timestamp": "2026-10-17T05:22:00.000Z"
+}
+```
+
+---
+
+## 🛡 Quality Checks
+
+```bash
+# TypeScript compilation check without emitting files
+pnpm typecheck
+
+# ESLint analysis
+pnpm lint
+pnpm lint:fix
+```
+
+---
+
+## 🛣 Route Manifest (Phase 1)
+
+| Method | Path                | Auth   | Description                             | Status                 |
+| ------ | ------------------- | ------ | --------------------------------------- | ---------------------- |
+| `GET`  | `/health`           | Public | Service health & uptime probe           | ✅ Implemented (Day 1) |
+| `POST` | `/auth/register`    | Public | User registration with argon2 hash      | ⏳ Day 2               |
+| `POST` | `/auth/login`       | Public | Issue 15m access token & refresh cookie | ⏳ Day 3               |
+| `POST` | `/auth/refresh`     | Cookie | Refresh rotation with reuse detection   | ⏳ Day 4               |
+| `POST` | `/auth/logout`      | Cookie | Invalidate refresh family               | ⏳ Day 4               |
+| `POST` | `/orgs`             | JWT    | Create tenant organization & set owner  | ⏳ Day 5               |
+| `GET`  | `/orgs/:id/members` | RBAC   | Member list with role checks            | ⏳ Day 7               |
+| `GET`  | `/orgs/:id/audit`   | RBAC   | Append-only audit trail logs            | ⏳ Day 8               |
