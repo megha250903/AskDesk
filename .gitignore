@@ -35,3 +35,6 @@ Thumbs.db
 # Temp
 tmp/
 temp/
+
+# Local run & test guide
+RUN_AND_TEST.md
