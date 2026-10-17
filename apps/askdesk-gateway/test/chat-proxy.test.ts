@@ -6,7 +6,7 @@ import { buildGatewayApp } from '../src/app.js';
 import { ApiKeyModel, OrganizationModel } from '../src/models/core-models.js';
 import { closeRedisClient } from '../src/redis/client.js';
 
-const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_core_test';
+const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_gateway_test';
 
 describe('Gateway Chat Completions & Streaming (Days 11 & 12)', () => {
   let app: FastifyInstance;

@@ -6,6 +6,9 @@ export default defineConfig({
     environment: 'node',
     fileParallelism: false,
     include: ['test/**/*.test.ts'],
+    env: {
+      MONGODB_URI: 'mongodb://127.0.0.1:27017/askdesk_core_test'
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

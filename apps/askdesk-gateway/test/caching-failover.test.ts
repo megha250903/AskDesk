@@ -9,7 +9,7 @@ import { getRedisClient, closeRedisClient } from '../src/redis/client.js';
 import { ResilientRunner } from '../src/providers/resilient-runner.js';
 import { IProvider, ChatCompletionRequest } from '../src/providers/provider.interface.js';
 
-const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_core_test';
+const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_gateway_test';
 
 describe('Caching, Failover & Telemetry (Days 15, 16, 17)', () => {
   let app: FastifyInstance;

@@ -7,6 +7,9 @@ export default defineConfig({
     fileParallelism: false,
     include: ['test/**/*.test.ts'],
     testTimeout: 20000,
+    env: {
+      MONGODB_URI: 'mongodb://127.0.0.1:27017/askdesk_gateway_test'
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

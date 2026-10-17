@@ -7,7 +7,7 @@ import { ApiKeyModel, OrganizationModel } from '../src/models/core-models.js';
 import { UsageRecordModel } from '../src/models/usage-record.model.js';
 import { getRedisClient, closeRedisClient } from '../src/redis/client.js';
 
-const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_core_test';
+const TEST_DB_URI = 'mongodb://127.0.0.1:27017/askdesk_gateway_test';
 
 describe('Embeddings & Analytics API (Days 18 & 19)', () => {
   let app: FastifyInstance;

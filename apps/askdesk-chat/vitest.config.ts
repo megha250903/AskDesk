@@ -10,6 +10,9 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       exclude: ['node_modules/', 'dist/', 'test/']
     },
-    testTimeout: 20000
+    testTimeout: 20000,
+    env: {
+      MONGODB_URI: 'mongodb://127.0.0.1:27017/askdesk_chat_test'
+    }
   }
 });
