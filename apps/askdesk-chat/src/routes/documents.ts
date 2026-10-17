@@ -1,26 +1,49 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { Types } from 'mongoose';
+import crypto from 'node:crypto';
 import { DocumentModel, IDocument } from '../models/document.model.js';
 import { defaultIngestionWorker } from '../queues/ingestion.queue.js';
 import { getQdrantClient } from '../qdrant/qdrant.client.js';
 
+function toObjectId(id: string): Types.ObjectId {
+  if (Types.ObjectId.isValid(id) && id.length === 24) {
+    return new Types.ObjectId(id);
+  }
+  const hash = crypto.createHash('md5').update(id).digest('hex').substring(0, 24);
+  return new Types.ObjectId(hash);
+}
+
+function parseContentBuffer(content: string, mimeType: string, encoding?: string): Buffer {
+  if (encoding === 'base64') {
+    return Buffer.from(content, 'base64');
+  }
+  if (content.startsWith('data:') && content.includes(';base64,')) {
+    const base64Data = content.split(';base64,')[1] ?? '';
+    return Buffer.from(base64Data, 'base64');
+  }
+  if (mimeType === 'application/pdf') {
+    return Buffer.from(content, 'base64');
+  }
+  return Buffer.from(content, 'utf-8');
+}
+
 export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
-  // POST /orgs/:orgId/documents/upload
-  fastify.post('/orgs/:orgId/documents/upload', async (request, reply) => {
+  const handleUpload = async (request: FastifyRequest, reply: FastifyReply) => {
     const { orgId } = request.params as { orgId: string };
 
-    if (!Types.ObjectId.isValid(orgId)) {
+    if (!orgId || orgId.trim() === '') {
       return reply.code(400).send({
         error: 'Bad Request',
-        message: 'Invalid organization ID'
+        message: 'Organization ID is required'
       });
     }
 
+    const organizationObjectId = toObjectId(orgId);
     let filename = 'document.txt';
     let mimeType = 'text/plain';
     let contentBuffer: Buffer = Buffer.from('');
 
-    // Check if multipart
+    // Check if multipart form upload
     if (request.isMultipart()) {
       const part = await request.file();
       if (!part) {
@@ -30,7 +53,7 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
         });
       }
       filename = part.filename;
-      mimeType = part.mimetype;
+      mimeType = part.mimetype || (filename.endsWith('.pdf') ? 'application/pdf' : 'text/plain');
       contentBuffer = await part.toBuffer();
     } else {
       // JSON payload
@@ -39,6 +62,7 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
           filename?: string;
           mimeType?: string;
           content?: string;
+          encoding?: string;
         }) ?? {};
 
       if (!body.content) {
@@ -50,17 +74,12 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
 
       filename = body.filename ?? 'document.txt';
       mimeType = body.mimeType ?? (filename.endsWith('.pdf') ? 'application/pdf' : 'text/plain');
-
-      // Check if base64 encoded or raw text
-      const isBase64 = /^[A-Za-z0-9+/=]+$/.test(body.content) && body.content.length % 4 === 0;
-      contentBuffer = isBase64
-        ? Buffer.from(body.content, 'base64')
-        : Buffer.from(body.content, 'utf-8');
+      contentBuffer = parseContentBuffer(body.content, mimeType, body.encoding);
     }
 
     // 1. Create document in MongoDB
     const doc = new DocumentModel({
-      organizationId: new Types.ObjectId(orgId),
+      organizationId: organizationObjectId,
       filename,
       fileSize: contentBuffer.length,
       mimeType,
@@ -71,7 +90,6 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
     // 2. Process ingestion asynchronously
     const contentBase64 = contentBuffer.toString('base64');
 
-    // Process indexing
     try {
       const result = await defaultIngestionWorker.processDocument({
         documentId: doc._id.toString(),
@@ -85,6 +103,7 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
         message: 'Document uploaded and indexed successfully',
         document: {
           id: doc._id.toString(),
+          orgId: orgId,
           filename: doc.filename,
           fileSize: doc.fileSize,
           mimeType: doc.mimeType,
@@ -101,21 +120,27 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
         documentId: doc._id.toString()
       });
     }
-  });
+  };
+
+  // Support both POST /orgs/:orgId/documents and POST /orgs/:orgId/documents/upload
+  fastify.post('/orgs/:orgId/documents', handleUpload);
+  fastify.post('/orgs/:orgId/documents/upload', handleUpload);
 
   // GET /orgs/:orgId/documents
   fastify.get('/orgs/:orgId/documents', async (request, reply) => {
     const { orgId } = request.params as { orgId: string };
 
-    if (!Types.ObjectId.isValid(orgId)) {
+    if (!orgId) {
       return reply.code(400).send({
         error: 'Bad Request',
-        message: 'Invalid organization ID'
+        message: 'Organization ID is required'
       });
     }
 
+    const organizationObjectId = toObjectId(orgId);
+
     const docs = await DocumentModel.find({
-      organizationId: new Types.ObjectId(orgId)
+      organizationId: organizationObjectId
     }).sort({ createdAt: -1 });
 
     return reply.code(200).send({
@@ -136,16 +161,18 @@ export async function documentRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.delete('/orgs/:orgId/documents/:docId', async (request, reply) => {
     const { orgId, docId } = request.params as { orgId: string; docId: string };
 
-    if (!Types.ObjectId.isValid(orgId) || !Types.ObjectId.isValid(docId)) {
+    if (!orgId || !docId) {
       return reply.code(400).send({
         error: 'Bad Request',
         message: 'Invalid parameters'
       });
     }
 
+    const organizationObjectId = toObjectId(orgId);
+
     const doc = await DocumentModel.findOneAndDelete({
-      _id: new Types.ObjectId(docId),
-      organizationId: new Types.ObjectId(orgId)
+      _id: toObjectId(docId),
+      organizationId: organizationObjectId
     });
 
     if (!doc) {
