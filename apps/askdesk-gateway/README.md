@@ -37,7 +37,7 @@ graph TD
 
 ---
 
-## 🚀 Benchmark Metrics (k6 Load Test - Day 20)
+## 🚀 Benchmark Metrics (k6 Load Test)
 
 | Metric                                    | Target        | Benchmark Result                  |
 | ----------------------------------------- | ------------- | --------------------------------- |
@@ -48,15 +48,15 @@ graph TD
 
 ---
 
-## 🛣 Route Manifest (Phase 2)
+## 🛣 Route Manifest
 
-| Method | Path                               | Auth    | Description                                         | Status           |
-| ------ | ---------------------------------- | ------- | --------------------------------------------------- | ---------------- |
-| `GET`  | `/health`                          | Public  | Service health & uptime probe                       | ✅ Done (Day 11) |
-| `POST` | `/v1/chat/completions`             | API Key | Non-streaming proxy to Groq via Provider interface  | ✅ Done (Day 11) |
-| `POST` | `/v1/chat/completions?stream=true` | API Key | SSE streaming with client abort handling            | ✅ Done (Day 12) |
-| `POST` | `/v1/embeddings`                   | API Key | OpenAI-compatible batch embeddings                  | ✅ Done (Day 18) |
-| `GET`  | `/v1/analytics`                    | JWT     | Aggregated usage, cost, tokens, and p50/p95 latency | ✅ Done (Day 19) |
+| Method | Path                               | Auth    | Description                                         | Status      |
+| ------ | ---------------------------------- | ------- | --------------------------------------------------- | ----------- |
+| `GET`  | `/health`                          | Public  | Service health & uptime probe                       | Operational |
+| `POST` | `/v1/chat/completions`             | API Key | Non-streaming proxy to Groq via Provider interface  | Operational |
+| `POST` | `/v1/chat/completions?stream=true` | API Key | SSE streaming with client abort handling            | Operational |
+| `POST` | `/v1/embeddings`                   | API Key | OpenAI-compatible batch embeddings                  | Operational |
+| `GET`  | `/v1/analytics`                    | JWT     | Aggregated usage, cost, tokens, and p50/p95 latency | Operational |
 
 ---
 

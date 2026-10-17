@@ -1,30 +1,27 @@
 # AskDesk
 
-> Intelligent technical support and customer helpdesk platform with tenant-isolated RAG, LLM proxy gateway, fine-grained RBAC, and automated prompt evaluation.
+> Intelligent customer support & AI gateway platform with tenant-isolated RAG, high-throughput LLM proxy, fine-grained RBAC, and automated prompt evaluation.
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-22.x-green?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-9.x-orange?style=flat-square&logo=pnpm)](https://pnpm.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
 ---
 
-## 🎯 Problem Statement
+## 🎯 Overview
 
-Modern customer support teams struggle with:
+AskDesk is an enterprise customer support platform engineered to combine multi-tenant security with high-performance LLM infrastructure:
 
-1. **Slow resolution times**: Tier-1 support spends hours repeatedly answering common technical and policy questions.
-2. **Context fragmentation**: Documentation is scattered across markdown, PDFs, wikis, and internal manuals without unified retrieval.
-3. **Multi-tenant data leaks & security risks**: Generic chatbots mix or leak proprietary customer/organizational data.
-4. **LLM costs and unreliability**: Direct API calls to LLM providers lack rate-limiting, semantic caching, token cost accounting, and fallbacks.
-5. **Prompt drift & regression**: Prompts updated in production break quietly without CI/CD assertion gates.
-
-**AskDesk** solves this by delivering an enterprise-ready customer support platform combining:
-
-- **askdesk-core**: Auth, RBAC, organization tenants, Stripe billing, audit logging, and team management.
-- **askdesk-gateway**: High-performance streaming LLM proxy with token-bucket rate limiting, Redis caching, cost accounting, and provider fallbacks.
-- **askdesk-chat**: Document ingestion pipeline (PDF/text), chunking, Qdrant vector retrieval with strict tenant isolation, and citations.
-- **promptproof**: Automated CI evaluation framework to score prompt outputs and block regressions before production deploys.
-- **askdesk-dashboard & widget**: Quiet, dense, technical UI for operators and an embeddable customer-facing widget.
+- **askdesk-core**: Identity, authentication (Argon2id + dual-token rotation), tenant isolation, role-based access control (RBAC), Stripe subscription billing, immutable audit logging, and API key management.
+- **askdesk-gateway**: High-throughput OpenAI-compatible proxy with Redis token-bucket rate limiting, exact-match response caching, per-model cost accounting, and resilient provider failovers.
+- **askdesk-chat**: Document ingestion pipeline, tenant-isolated vector retrieval with Qdrant, source citations, and chat engine.
+- **promptproof**: Automated CI/CD prompt evaluation framework to detect drift and prevent regressions before production deployment.
+- **askdesk-dashboard & widget**: Dense, operational operator dashboard and an embeddable customer-facing widget.
 
 ---
 
-## 🏗 Architecture Overview
+## 🏗 Architecture
 
 ```mermaid
 graph TD
@@ -34,17 +31,17 @@ graph TD
     end
 
     subgraph Core ["askdesk-core (Port 4000)"]
-        Auth["Auth & JWT / Refresh"]
+        Auth["Auth & JWT / Refresh Rotation"]
         RBAC["Multi-Tenant RBAC"]
-        Audit["Audit Logging"]
+        Audit["Immutable Audit Logging"]
         Billing["Stripe & API Keys"]
     end
 
     subgraph Gateway ["askdesk-gateway (Port 4001)"]
         Proxy["OpenAI-Compatible Proxy"]
-        TokenBucket["Rate Limiting (Redis)"]
-        Cache["Response Cache"]
-        Queue["BullMQ Usage & Cost"]
+        TokenBucket["Rate Limiting (Redis Lua)"]
+        Cache["Response Cache (Exact-Match)"]
+        Queue["BullMQ Usage & Cost Telemetry"]
     end
 
     subgraph ChatEngine ["askdesk-chat (Port 4002)"]
@@ -58,7 +55,7 @@ graph TD
         Assertions["Deterministic & LLM Judge"]
     end
 
-    Widget -->|Public API / Widget Token| ChatEngine
+    Widget -->|Public API / Token| ChatEngine
     Dashboard -->|JWT / Org Context| Core
     Dashboard -->|Analytics & Keys| Gateway
     ChatEngine -->|Embeddings & Chat Streaming| Gateway
@@ -76,13 +73,13 @@ graph TD
 │   ├── askdesk-core/       # Core service: Auth, Users, Orgs, RBAC, Billing, Audit
 │   ├── askdesk-gateway/    # AI Gateway: LLM proxy, rate limiting, cache, telemetry
 │   ├── askdesk-chat/       # Ingestion worker, Qdrant RAG search, chat endpoints
-│   └── askdesk-dashboard/  # Dense, technical React dashboard (Vite + Tailwind)
+│   └── askdesk-dashboard/  # Operator Dashboard (React + Vite + Tailwind)
 ├── packages/
-│   ├── promptproof/        # CI/CD prompt evaluation CLI & runner
-│   └── widget/             # Embeddable vanilla TS widget bundle
-├── .husky/                 # Git hooks (pre-commit lint & commit-msg commitlint)
-├── DECISIONS.md            # Technical decisions and architectural records
-└── pnpm-workspace.yaml     # pnpm workspace monorepo definition
+│   ├── promptproof/        # CI/CD prompt evaluation CLI & test runner
+│   └── widget/             # Embeddable vanilla TypeScript chat widget
+├── .husky/                 # Git hooks (lint & typecheck pre-commit)
+├── DECISIONS.md            # Architecture & technical decisions log
+└── pnpm-workspace.yaml     # Monorepo workspace configuration
 ```
 
 ---
@@ -93,7 +90,7 @@ graph TD
 
 - **Node.js**: `>= 20.0.0` (v22.x recommended)
 - **pnpm**: `>= 9.0.0`
-- **MongoDB**: Local MongoDB instance running on port `27017` (No Docker required)
+- **MongoDB**: Local MongoDB instance running on port `27017` (Runs 100% natively without Docker required)
 
 ### 1. Install Dependencies
 
@@ -103,114 +100,95 @@ pnpm install
 
 ### 2. Configure Environment
 
-Copy `.env.example` in `apps/askdesk-core`:
+Copy `.env.example` in each service:
 
 ```bash
 cp apps/askdesk-core/.env.example apps/askdesk-core/.env
+cp apps/askdesk-gateway/.env.example apps/askdesk-gateway/.env
 ```
 
-Default configuration runs out of the box with `HOST=127.0.0.1`, `PORT=4000`, and `MONGODB_URI=mongodb://127.0.0.1:27017/askdesk_core`.
-
-### 3. Start Development Server
+### 3. Run Development Services
 
 ```bash
-# Start askdesk-core dev server with hot reload
-pnpm dev:core
-```
+# Start Core Control Plane (port 4000)
+pnpm --filter askdesk-core dev
 
-Output:
-
-```text
-[askdesk-core] Connected to MongoDB at mongodb://127.0.0.1:27017/askdesk_core
-[askdesk-core] Server running at http://127.0.0.1:4000 in development mode
+# Start AI Gateway (port 4001)
+pnpm --filter askdesk-gateway dev
 ```
 
 ---
 
-## 🧪 Testing Guide
+## 🧪 Testing & Verification
 
-### Automated Vitest Suite
+The repository contains comprehensive unit and integration tests across all microservices using Vitest:
 
 ```bash
-# Run all unit and integration tests across the workspace
+# Run all tests across the monorepo
 pnpm test
 
-# Run tests with V8 code coverage report
+# Run tests with code coverage report
 pnpm test:coverage
 
-# Run tests in interactive watch mode
-pnpm --filter askdesk-core test:watch
+# Run strict type checking across all packages
+pnpm typecheck
+
+# Run ESLint across all packages
+pnpm lint
+
+# Check code formatting with Prettier
+pnpm format:check
 ```
 
-### Manual Testing & Route Verification
+---
 
-1. **Verify Health Route**:
+## 📡 API Reference
 
-   ```bash
-   curl http://127.0.0.1:4000/health
-   ```
+### Core Service (`http://127.0.0.1:4000`)
 
-   **Expected Response (HTTP 200 OK):**
+| Method | Endpoint                      | Description                                       |
+| :----- | :---------------------------- | :------------------------------------------------ |
+| `GET`  | `/health`                     | Service health status and uptime                  |
+| `POST` | `/auth/register`              | Register user with Argon2id password hashing      |
+| `POST` | `/auth/login`                 | Login and issue JWT access token + refresh cookie |
+| `POST` | `/auth/refresh`               | Single-use rotation with family reuse revocation  |
+| `POST` | `/auth/logout`                | Invalidate current refresh token                  |
+| `POST` | `/orgs`                       | Create organization (assigns creator as `owner`)  |
+| `GET`  | `/orgs/:orgId`                | Fetch organization details (RBAC isolated)        |
+| `POST` | `/orgs/:orgId/invites`        | Invite user with role (`admin`, `member`)         |
+| `POST` | `/orgs/:orgId/invites/accept` | Accept team invitation                            |
+| `GET`  | `/orgs/:orgId/audit`          | Paginated immutable audit trail (admins only)     |
+| `POST` | `/orgs/:orgId/api-keys`       | Generate secret-reveal-once API key               |
+| `POST` | `/webhooks/stripe`            | Idempotent Stripe billing webhook handler         |
 
-   ```json
-   {
-     "status": "ok",
-     "service": "askdesk-core",
-     "uptime": 14.52,
-     "timestamp": "2026-10-17T05:22:00.000Z"
-   }
-   ```
+### Gateway Service (`http://127.0.0.1:4001`)
 
-2. **Register a New User**:
-
-   ```bash
-   curl -X POST http://127.0.0.1:4000/auth/register \
-     -H "Content-Type: application/json" \
-     -d '{"email": "alex@example.com", "password": "SecureP@ssword123!", "name": "Alex"}'
-   ```
-
-   **Expected Response (HTTP 201 Created):**
-
-   ```json
-   {
-     "message": "User registered successfully",
-     "user": {
-       "id": "67b0...",
-       "email": "alex@example.com",
-       "name": "Alex",
-       "createdAt": "2026-10-17T05:30:00.000Z"
-     }
-   }
-   ```
-
-3. **Verify Duplicate Email Handling**:
-   Repeat the same curl command above:
-   **Expected Response (HTTP 409 Conflict):**
-   ```json
-   {
-     "error": "Conflict",
-     "message": "An account with this email address already exists"
-   }
-   ```
+| Method | Endpoint                           | Description                                                    |
+| :----- | :--------------------------------- | :------------------------------------------------------------- |
+| `GET`  | `/health`                          | Gateway health probe                                           |
+| `POST` | `/v1/chat/completions`             | OpenAI-compatible chat proxy with model aliases                |
+| `POST` | `/v1/chat/completions?stream=true` | Server-Sent Events (SSE) streaming with abort handling         |
+| `POST` | `/v1/embeddings`                   | OpenAI-compatible batch embeddings                             |
+| `GET`  | `/v1/analytics`                    | Usage breakdown, token consumption, cost & latency percentiles |
 
 ---
 
-| Phase                        | Days       | Description                                                                     | Status                         |
-| ---------------------------- | ---------- | ------------------------------------------------------------------------------- | ------------------------------ |
-| **Phase 1: askdesk-core**    | Days 1–10  | Fastify foundation, Auth, Users, Orgs, RBAC, Audit, Stripe Billing, API Keys    | 🟢 Completed (Days 1–10 Done)  |
-| **Phase 2: askdesk-gateway** | Days 11–20 | Streaming proxy, token-bucket limiter, response cache, cost tracking, analytics | 🟢 Completed (Days 11–20 Done) |
-| **Phase 3: askdesk-chat**    | Days 21–33 | Ingestion, chunking, Qdrant tenant retrieval, citations, UI widget & dashboard  | ⚪ Next Phase                  |
-| **Phase 4: promptproof**     | Days 34–40 | CLI eval framework, deterministic & LLM assertions, PR regressions              | ⚪ Pending                     |
-| **Phase 5: Polish**          | Days 41–45 | Multi-service orchestration, security hardening, final docs                     | ⚪ Pending                     |
+## 🛡 Security & Design Principles
+
+1. **Multi-Tenant Isolation**: Tenant boundaries are enforced at the database query level; requests are scoped by organization ID with zero shared leakage.
+2. **Defensive Cryptography**: Passwords use Argon2id with OWASP-recommended memory parameters; API keys and refresh tokens store SHA-256 hashes only.
+3. **Atomic Rate Limiting**: Token-bucket algorithm executed natively in Redis Lua to ensure concurrency safety without race conditions.
+4. **Append-Only Auditing**: Audit entries cannot be mutated or deleted after insertion to maintain compliance integrity.
+5. **Fail-Fast Architecture**: Zod validates all environment variables at process launch, aborting startup immediately if credentials or configurations are invalid.
 
 ---
 
-## 📜 Technical Decisions
+## 📜 Architectural Decisions
 
-All architectural decisions and tradeoffs are logged in [DECISIONS.md](file:///c:/Users/shivk/Downloads/askDesk/DECISIONS.md).
+Major technical decisions and architectural records are documented in [DECISIONS.md](DECISIONS.md).
 
 ---
 
-## 🛡 License
+## 📄 License
 
 MIT
