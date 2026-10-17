@@ -10,7 +10,21 @@ const envSchema = z.object({
   HOST: z.string().default('127.0.0.1'),
   PORT: z.coerce.number().int().min(1024).max(65535).default(4000),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
-  MONGODB_URI: z.string().default('mongodb://127.0.0.1:27017/askdesk_core')
+  MONGODB_URI: z.string().default('mongodb://127.0.0.1:27017/askdesk_core'),
+  JWT_ACCESS_SECRET: z
+    .string()
+    .min(32)
+    .default('askdesk-super-secret-jwt-access-token-key-2026-min-32-chars'),
+  JWT_REFRESH_SECRET: z
+    .string()
+    .min(32)
+    .default('askdesk-super-secret-jwt-refresh-token-key-2026-min-32-chars'),
+  COOKIE_SECRET: z
+    .string()
+    .min(32)
+    .default('askdesk-super-secret-cookie-signer-key-2026-min-32-chars'),
+  STRIPE_SECRET_KEY: z.string().default('sk_test_askdesk_mock_key'),
+  STRIPE_WEBHOOK_SECRET: z.string().default('whsec_askdesk_mock_key')
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
