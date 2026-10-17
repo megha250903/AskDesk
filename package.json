@@ -5,6 +5,7 @@
   "description": "AskDesk: AI-powered technical support helpdesk with gateway, tenant isolation, and prompt evaluation",
   "scripts": {
     "dev:core": "pnpm --filter askdesk-core dev",
+    "dev:gateway": "pnpm --filter askdesk-gateway dev",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "test:coverage": "pnpm -r run test:coverage",

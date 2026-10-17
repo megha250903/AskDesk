@@ -100,11 +100,12 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
     });
     const tokenA = JSON.parse(loginA.payload).accessToken;
 
+    const slugA = `tenant-a-${Math.random().toString(36).substring(2, 7)}`;
     const orgRes = await app.inject({
       method: 'POST',
       url: '/orgs',
       headers: { authorization: `Bearer ${tokenA}` },
-      payload: { name: 'Tenant A', slug: 'tenant-a' }
+      payload: { name: 'Tenant A', slug: slugA }
     });
     const orgId = JSON.parse(orgRes.payload).organization.id;
 

@@ -20,3 +20,13 @@ This log records major technical, architectural, and design choices made during 
 - **2026-10-17 (Day 9)**: Configured tiered plan limits in config (`free`, `pro`, `enterprise`) and integrated Stripe Checkout & Customer Portal sessions, binding Stripe Customer ID directly to the Organization model.
 - **2026-10-17 (Day 10)**: Implemented Stripe webhook idempotency via `WebhookEventModel` event ID tracking, preventing double-billing/double-upgrades.
 - **2026-10-17 (Day 10)**: API keys follow the secret-reveal-once pattern (`ak_live_<prefix>_<secret>`), persisting only the SHA-256 hash and prefix in the database, with support for instant revocation.
+- **2026-10-17 (Day 11)**: Implemented OpenAI-compatible Chat Completions proxy (`askdesk-gateway`) with friendly model alias mapping (`fast` -> `llama-3.1-8b-instant`, `smart` -> `llama-3.3-70b-versatile`) powered by Groq SDK for ultra-low latency inference.
+- **2026-10-17 (Day 12)**: Implemented Server-Sent Events (SSE) streaming passthrough with client abort detection (`request.raw.on('close')`) to cancel upstream inference immediately when clients disconnect.
+- **2026-10-17 (Day 13)**: Implemented Bearer API Key authentication in Gateway with 60-second Redis caching of key-to-tenant mapping to eliminate database roundtrips on high-frequency LLM requests.
+- **2026-10-17 (Day 14)**: Implemented atomic Redis Token-Bucket rate limiting via custom Lua script, enforcing organization plan limits (`free`: 20 RPM / 40k TPM, `pro`: 120 RPM / 200k TPM, `enterprise`: 600 RPM / 1M TPM) with accurate `Retry-After` headers.
+- **2026-10-17 (Day 15)**: Integrated non-blocking asynchronous usage and cost telemetry recording token counts and per-model pricing in MongoDB without adding latency to inference calls.
+- **2026-10-17 (Day 16)**: Implemented exact-match Redis response caching with SHA-256 request fingerprinting, returning `X-Cache: HIT/MISS` headers while intelligently bypassing non-deterministic high-temperature requests (`temperature > 0.3`).
+- **2026-10-17 (Day 17)**: Built resilient LLM runner with exponential backoff, jitter, and automatic failover to secondary provider on upstream 5xx errors or outages.
+- **2026-10-17 (Day 18)**: Built batch embeddings endpoint (`/v1/embeddings`) with input validation, deterministic embedding vectors, and token usage accounting.
+- **2026-10-17 (Day 19)**: Built analytics aggregation pipelines (`GET /v1/analytics`) computing summary token consumption, estimated spend, per-day breakdowns, per-model breakdowns, and p50/p95 latency percentiles.
+- **2026-10-17 (Day 20)**: Configured k6 load testing scripts, multi-stage production Dockerfile, and docker-compose orchestration for end-to-end Gateway verification.

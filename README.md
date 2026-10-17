@@ -195,15 +195,13 @@ pnpm --filter askdesk-core test:watch
 
 ---
 
-## 📅 Roadmap & Phase Status
-
-| Phase                        | Days       | Description                                                                    | Status                        |
-| ---------------------------- | ---------- | ------------------------------------------------------------------------------ | ----------------------------- |
-| **Phase 1: askdesk-core**    | Days 1–10  | Fastify foundation, Auth, Users, Orgs, RBAC, Audit, Stripe Billing, API Keys   | 🟢 Completed (Days 1–10 Done) |
-| **Phase 2: askdesk-gateway** | Days 11–20 | Streaming proxy, token-bucket limiter, response cache, cost tracking           | ⚪ Pending                    |
-| **Phase 3: askdesk-chat**    | Days 21–33 | Ingestion, chunking, Qdrant tenant retrieval, citations, UI widget & dashboard | ⚪ Pending                    |
-| **Phase 4: promptproof**     | Days 34–40 | CLI eval framework, deterministic & LLM assertions, PR regressions             | ⚪ Pending                    |
-| **Phase 5: Polish**          | Days 41–45 | Multi-service orchestration, security hardening, final docs                    | ⚪ Pending                    |
+| Phase                        | Days       | Description                                                                     | Status                         |
+| ---------------------------- | ---------- | ------------------------------------------------------------------------------- | ------------------------------ |
+| **Phase 1: askdesk-core**    | Days 1–10  | Fastify foundation, Auth, Users, Orgs, RBAC, Audit, Stripe Billing, API Keys    | 🟢 Completed (Days 1–10 Done)  |
+| **Phase 2: askdesk-gateway** | Days 11–20 | Streaming proxy, token-bucket limiter, response cache, cost tracking, analytics | 🟢 Completed (Days 11–20 Done) |
+| **Phase 3: askdesk-chat**    | Days 21–33 | Ingestion, chunking, Qdrant tenant retrieval, citations, UI widget & dashboard  | ⚪ Next Phase                  |
+| **Phase 4: promptproof**     | Days 34–40 | CLI eval framework, deterministic & LLM assertions, PR regressions              | ⚪ Pending                     |
+| **Phase 5: Polish**          | Days 41–45 | Multi-service orchestration, security hardening, final docs                     | ⚪ Pending                     |
 
 ---
 
