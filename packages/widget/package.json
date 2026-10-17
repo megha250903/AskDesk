@@ -1,0 +1,23 @@
+{
+  "name": "@askdesk/widget",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Embeddable customer-facing chat widget for AskDesk with Shadow DOM isolation and streaming citations",
+  "main": "dist/widget.js",
+  "types": "dist/widget.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.9",
+    "eslint": "^9.21.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0",
+    "vitest": "^3.0.7"
+  }
+}

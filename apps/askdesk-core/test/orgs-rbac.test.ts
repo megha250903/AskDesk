@@ -87,16 +87,19 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
   });
 
   it('middleware blocks non-members from accessing /orgs/:orgId', async () => {
+    const emailA = `usera-${Math.random().toString(36).substring(2, 7)}@example.com`;
+    const emailB = `userb-${Math.random().toString(36).substring(2, 7)}@example.com`;
+
     // User A creates org
     await app.inject({
       method: 'POST',
       url: '/auth/register',
-      payload: { email: 'usera@example.com', password: 'ValidP@ssword2026!' }
+      payload: { email: emailA, password: 'ValidP@ssword2026!' }
     });
     const loginA = await app.inject({
       method: 'POST',
       url: '/auth/login',
-      payload: { email: 'usera@example.com', password: 'ValidP@ssword2026!' }
+      payload: { email: emailA, password: 'ValidP@ssword2026!' }
     });
     const tokenA = JSON.parse(loginA.payload).accessToken;
 
@@ -113,12 +116,12 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
     await app.inject({
       method: 'POST',
       url: '/auth/register',
-      payload: { email: 'userb@example.com', password: 'ValidP@ssword2026!' }
+      payload: { email: emailB, password: 'ValidP@ssword2026!' }
     });
     const loginB = await app.inject({
       method: 'POST',
       url: '/auth/login',
-      payload: { email: 'userb@example.com', password: 'ValidP@ssword2026!' }
+      payload: { email: emailB, password: 'ValidP@ssword2026!' }
     });
     const tokenB = JSON.parse(loginB.payload).accessToken;
 
@@ -133,16 +136,20 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
   });
 
   it('handles team lifecycle: invite, accept, change role, and enforces owner safety rules', async () => {
+    const ceoEmail = `ceo-${Math.random().toString(36).substring(2, 7)}@startup.io`;
+    const devEmail = `dev-${Math.random().toString(36).substring(2, 7)}@startup.io`;
+    const startupSlug = `startup-${Math.random().toString(36).substring(2, 7)}`;
+
     // 1. Owner registers and creates org
     await app.inject({
       method: 'POST',
       url: '/auth/register',
-      payload: { email: 'ceo@startup.io', password: 'ValidP@ssword2026!' }
+      payload: { email: ceoEmail, password: 'ValidP@ssword2026!' }
     });
     const ceoLogin = await app.inject({
       method: 'POST',
       url: '/auth/login',
-      payload: { email: 'ceo@startup.io', password: 'ValidP@ssword2026!' }
+      payload: { email: ceoEmail, password: 'ValidP@ssword2026!' }
     });
     const ceoToken = JSON.parse(ceoLogin.payload).accessToken;
 
@@ -150,7 +157,7 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
       method: 'POST',
       url: '/orgs',
       headers: { authorization: `Bearer ${ceoToken}` },
-      payload: { name: 'Startup IO', slug: 'startup-io' }
+      payload: { name: 'Startup IO', slug: startupSlug }
     });
     const orgId = JSON.parse(orgRes.payload).organization.id;
 
@@ -159,7 +166,7 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
       method: 'POST',
       url: `/orgs/${orgId}/invites`,
       headers: { authorization: `Bearer ${ceoToken}` },
-      payload: { email: 'developer@startup.io', role: 'member' }
+      payload: { email: devEmail, role: 'member' }
     });
     expect(inviteRes.statusCode).toBe(201);
     const { inviteToken } = JSON.parse(inviteRes.payload).invite;
@@ -168,12 +175,12 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
     await app.inject({
       method: 'POST',
       url: '/auth/register',
-      payload: { email: 'developer@startup.io', password: 'ValidP@ssword2026!' }
+      payload: { email: devEmail, password: 'ValidP@ssword2026!' }
     });
     const devLogin = await app.inject({
       method: 'POST',
       url: '/auth/login',
-      payload: { email: 'developer@startup.io', password: 'ValidP@ssword2026!' }
+      payload: { email: devEmail, password: 'ValidP@ssword2026!' }
     });
     const devToken = JSON.parse(devLogin.payload).accessToken;
 
@@ -195,10 +202,8 @@ describe('Organizations, RBAC & Team Management (Days 5, 6, 7)', () => {
     const { members } = JSON.parse(membersRes.payload);
     expect(members).toHaveLength(2);
 
-    const devMemberId = members.find(
-      (m: { email: string }) => m.email === 'developer@startup.io'
-    ).id;
-    const ceoMemberId = members.find((m: { email: string }) => m.email === 'ceo@startup.io').id;
+    const devMemberId = members.find((m: { email: string }) => m.email === devEmail).id;
+    const ceoMemberId = members.find((m: { email: string }) => m.email === ceoEmail).id;
 
     // 5. Promote developer to admin
     const promoteRes = await app.inject({

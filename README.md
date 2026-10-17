@@ -104,6 +104,7 @@ Copy `.env.example` in each service:
 ```bash
 cp apps/askdesk-core/.env.example apps/askdesk-core/.env
 cp apps/askdesk-gateway/.env.example apps/askdesk-gateway/.env
+cp apps/askdesk-chat/.env.example apps/askdesk-chat/.env
 ```
 
 ### 3. Run Development Services
@@ -114,6 +115,12 @@ pnpm --filter askdesk-core dev
 
 # Start AI Gateway (port 4001)
 pnpm --filter askdesk-gateway dev
+
+# Start Chat & RAG Retrieval Service (port 4002)
+pnpm --filter askdesk-chat dev
+
+# Start Operator Dashboard (port 5173)
+pnpm --filter askdesk-dashboard dev
 ```
 
 ---
@@ -123,7 +130,7 @@ pnpm --filter askdesk-gateway dev
 The repository contains comprehensive unit and integration tests across all microservices using Vitest:
 
 ```bash
-# Run all tests across the monorepo
+# Run all tests across the monorepo (91 tests)
 pnpm test
 
 # Run tests with code coverage report
@@ -169,6 +176,19 @@ pnpm format:check
 | `POST` | `/v1/chat/completions?stream=true` | Server-Sent Events (SSE) streaming with abort handling         |
 | `POST` | `/v1/embeddings`                   | OpenAI-compatible batch embeddings                             |
 | `GET`  | `/v1/analytics`                    | Usage breakdown, token consumption, cost & latency percentiles |
+
+### Chat & Retrieval Service (`http://127.0.0.1:4002`)
+
+| Method   | Endpoint                              | Description                                                    |
+| :------- | :------------------------------------ | :------------------------------------------------------------- |
+| `GET`    | `/health`                             | Chat engine health probe                                       |
+| `POST`   | `/orgs/:orgId/documents`              | Ingest document (PDF or Markdown) into tenant vector store     |
+| `GET`    | `/orgs/:orgId/documents`              | List indexed documents and processing statuses                 |
+| `DELETE` | `/orgs/:orgId/documents/:docId`       | Remove document and prune associated vectors from Qdrant       |
+| `POST`   | `/chat/completions`                   | RAG chat completion with source citations & handover detection |
+| `POST`   | `/chat/completions/stream`            | SSE streaming completion with inline citations                 |
+| `GET`    | `/orgs/:orgId/conversations`          | List visitor conversation sessions                             |
+| `GET`    | `/orgs/:orgId/conversations/:convoId` | Fetch message history for a conversation thread                |
 
 ---
 
