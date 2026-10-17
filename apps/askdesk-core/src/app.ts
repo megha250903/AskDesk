@@ -1,5 +1,6 @@
 import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
 import { healthRoutes } from './routes/health.js';
+import { authRoutes } from './routes/auth.js';
 import { env } from './config/env.js';
 
 export function buildApp(opts: FastifyServerOptions = {}): FastifyInstance {
@@ -17,6 +18,7 @@ export function buildApp(opts: FastifyServerOptions = {}): FastifyInstance {
 
   // Register routes
   app.register(healthRoutes);
+  app.register(authRoutes);
 
   return app;
 }

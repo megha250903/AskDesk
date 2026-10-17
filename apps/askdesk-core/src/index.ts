@@ -1,5 +1,6 @@
 import { buildApp } from './app.js';
 import { env } from './config/env.js';
+import { connectDb, disconnectDb } from './db/connection.js';
 
 async function start(): Promise<void> {
   const app = buildApp();
@@ -11,7 +12,8 @@ async function start(): Promise<void> {
       app.log.info({ signal }, 'Received termination signal, shutting down gracefully...');
       try {
         await app.close();
-        app.log.info('Server successfully closed.');
+        await disconnectDb();
+        app.log.info('Server and database successfully closed.');
         process.exit(0);
       } catch (err) {
         app.log.error(err, 'Error during shutdown');
@@ -21,6 +23,10 @@ async function start(): Promise<void> {
   }
 
   try {
+    // Connect to database
+    await connectDb(env.MONGODB_URI);
+    app.log.info(`[askdesk-core] Connected to MongoDB at ${env.MONGODB_URI}`);
+
     const address = await app.listen({
       port: env.PORT,
       host: env.HOST

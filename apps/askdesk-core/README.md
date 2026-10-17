@@ -81,7 +81,7 @@ pnpm lint:fix
 | Method | Path                | Auth   | Description                             | Status                 |
 | ------ | ------------------- | ------ | --------------------------------------- | ---------------------- |
 | `GET`  | `/health`           | Public | Service health & uptime probe           | ✅ Implemented (Day 1) |
-| `POST` | `/auth/register`    | Public | User registration with argon2 hash      | ⏳ Day 2               |
+| `POST` | `/auth/register`    | Public | User registration with argon2 hash      | ✅ Implemented (Day 2) |
 | `POST` | `/auth/login`       | Public | Issue 15m access token & refresh cookie | ⏳ Day 3               |
 | `POST` | `/auth/refresh`     | Cookie | Refresh rotation with reuse detection   | ⏳ Day 4               |
 | `POST` | `/auth/logout`      | Cookie | Invalidate refresh family               | ⏳ Day 4               |
