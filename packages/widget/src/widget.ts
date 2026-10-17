@@ -1,10 +1,13 @@
-import { widgetStyles } from './styles.js';
+import { getWidgetStyles } from './styles.js';
 
 export interface WidgetConfig {
   tenantId: string;
-  apiHost?: string;
-  title?: string;
-  placeholder?: string;
+  apiHost?: string | undefined;
+  title?: string | undefined;
+  placeholder?: string | undefined;
+  primaryColor?: string | undefined;
+  position?: 'left' | 'right' | undefined;
+  greeting?: string | undefined;
 }
 
 export interface ChatMessage {
@@ -38,7 +41,10 @@ export class AskDeskWidget {
       tenantId: config.tenantId,
       apiHost: config.apiHost ?? 'http://127.0.0.1:4002',
       title: config.title ?? 'Support Assistant',
-      placeholder: config.placeholder ?? 'Ask a technical question...'
+      placeholder: config.placeholder ?? 'Ask a technical question...',
+      primaryColor: config.primaryColor ?? '#6366f1',
+      position: config.position ?? 'right',
+      greeting: config.greeting ?? 'Hello! I am your technical assistant. How can I help you today?'
     };
 
     this.visitorId = `visitor_${Math.random().toString(36).substring(2, 9)}`;
@@ -68,7 +74,10 @@ export class AskDeskWidget {
 
   private render(): void {
     const styleEl = document.createElement('style');
-    styleEl.textContent = widgetStyles;
+    styleEl.textContent = getWidgetStyles({
+      primaryColor: this.config.primaryColor,
+      position: this.config.position
+    });
 
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
@@ -89,7 +98,7 @@ export class AskDeskWidget {
 
         <div class="askdesk-messages">
           <div class="askdesk-msg assistant">
-            Hello! I am your technical assistant. How can I help you today?
+            ${this.config.greeting}
           </div>
         </div>
 
