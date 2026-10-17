@@ -1,0 +1,30 @@
+{
+  "name": "@askdesk/promptproof",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Automated prompt CI/CD evaluation gate, deterministic assertions, LLM-as-a-judge harness, and regression reporting",
+  "bin": {
+    "promptproof": "./dist/bin/promptproof.js"
+  },
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\" \"bin/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.9",
+    "eslint": "^9.21.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0",
+    "vitest": "^3.0.7"
+  }
+}

@@ -11,6 +11,8 @@
     "test:coverage": "pnpm -r run test:coverage",
     "lint": "pnpm -r run lint",
     "typecheck": "pnpm -r run typecheck",
+    "promptproof": "node packages/promptproof/dist/bin/promptproof.js run",
+    "promptproof:matrix": "node packages/promptproof/dist/bin/promptproof.js matrix",
     "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\"",
     "prepare": "husky"

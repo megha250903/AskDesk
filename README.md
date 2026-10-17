@@ -130,11 +130,17 @@ pnpm --filter askdesk-dashboard dev
 The repository contains comprehensive unit and integration tests across all microservices using Vitest:
 
 ```bash
-# Run all tests across the monorepo (91 tests)
+# Run all tests across the monorepo (106 tests)
 pnpm test
 
 # Run tests with code coverage report
 pnpm test:coverage
+
+# Run prompt evaluation CI quality gate suite
+pnpm promptproof
+
+# Run multi-model comparison matrix (Fast vs Smart models)
+pnpm promptproof:matrix
 
 # Run strict type checking across all packages
 pnpm typecheck

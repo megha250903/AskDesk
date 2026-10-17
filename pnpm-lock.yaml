@@ -244,6 +244,31 @@ importers:
         specifier: ^3.0.7
         version: 3.2.7(@types/node@22.20.5)(jiti@2.6.1)(tsx@4.23.15)
 
+  packages/promptproof:
+    dependencies:
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.21.0
+        version: 9.39.5
+      '@types/node':
+        specifier: ^22.13.9
+        version: 22.20.5
+      eslint:
+        specifier: ^9.21.0
+        version: 9.39.5(jiti@2.6.1)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      typescript-eslint:
+        specifier: ^8.26.0
+        version: 8.71.2(eslint@9.39.5(jiti@2.6.1))(typescript@5.9.3)
+      vitest:
+        specifier: ^3.0.7
+        version: 3.2.7(@types/node@22.20.5)(jiti@2.6.1)(tsx@4.23.15)
+
   packages/widget:
     devDependencies:
       '@eslint/js':

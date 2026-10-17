@@ -39,3 +39,6 @@ temp/
 # Local run & test guide
 RUN_AND_TEST.md
 REMAINING_TASKS.md
+
+# GitHub Workflows (avoid workflow PAT permission issues)
+.github/
