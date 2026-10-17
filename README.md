@@ -78,7 +78,6 @@ graph TD
 │   ├── promptproof/        # CI/CD prompt evaluation CLI & test runner
 │   └── widget/             # Embeddable vanilla TypeScript chat widget
 ├── .husky/                 # Git hooks (lint & typecheck pre-commit)
-├── DECISIONS.md            # Architecture & technical decisions log
 └── pnpm-workspace.yaml     # Monorepo workspace configuration
 ```
 
@@ -180,12 +179,6 @@ pnpm format:check
 3. **Atomic Rate Limiting**: Token-bucket algorithm executed natively in Redis Lua to ensure concurrency safety without race conditions.
 4. **Append-Only Auditing**: Audit entries cannot be mutated or deleted after insertion to maintain compliance integrity.
 5. **Fail-Fast Architecture**: Zod validates all environment variables at process launch, aborting startup immediately if credentials or configurations are invalid.
-
----
-
-## 📜 Architectural Decisions
-
-Major technical decisions and architectural records are documented in [DECISIONS.md](DECISIONS.md).
 
 ---
 
