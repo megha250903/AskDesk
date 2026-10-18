@@ -1,0 +1,1232 @@
+/* ==========================================================================
+   AskDesk Enterprise Landing Page — Exact Apollo.io Theme
+   Reference: https://www.apollo.io/
+   Aesthetic: High-end Light Editorial B2B SaaS (Off-white, Serif display, Lime accents)
+   ========================================================================== */
+
+/* Full-bleed view when on Homepage */
+.dashboard-container.is-home-view {
+  display: block !important;
+  background: #FFFFFF !important;
+  overflow-x: hidden !important;
+}
+.dashboard-container.is-home-view .dashboard-sidebar {
+  display: none !important;
+}
+.dashboard-container.is-home-view .dashboard-main {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  overflow-x: hidden !important;
+  background: #FFFFFF !important;
+}
+
+/* Apollo Page Container */
+.apollo-page {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1A1A1A;
+  background: #FFFFFF;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   APOLLO NAVBAR
+   -------------------------------------------------------------------------- */
+.apollo-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1px solid #ECECE8;
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.apollo-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.apollo-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.apollo-starburst {
+  width: 22px;
+  height: 22px;
+  color: #D8EE32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apollo-brand-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111111;
+}
+
+.apollo-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.apollo-nav-item {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4A4A4A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  transition: color 0.15s;
+}
+.apollo-nav-item:hover {
+  color: #111111;
+}
+.apollo-chevron {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.apollo-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.apollo-nav-login {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1A1A1A;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.15s;
+}
+.apollo-nav-login:hover {
+  color: #000000;
+}
+.apollo-btn-demo {
+  background: #EAEAE6;
+  border: 1px solid #DCDCD7;
+  color: #1A1A1A;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s, border-color 0.15s;
+}
+.apollo-btn-demo:hover {
+  background: #E0E0DC;
+  border-color: #D0D0CA;
+}
+.apollo-btn-signup-lime {
+  background: #D8EE32;
+  border: 1px solid #C8DE25;
+  color: #111111;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.apollo-btn-signup-lime:hover {
+  background: #CEE424;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(216, 238, 50, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   HERO SECTION
+   -------------------------------------------------------------------------- */
+.apollo-hero {
+  padding: 70px 24px 60px;
+  text-align: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.apollo-hero-headline {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(44px, 6.2vw, 84px);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: #111111;
+  margin: 0 auto 24px;
+  max-width: 980px;
+}
+
+.apollo-hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.55;
+  color: #4A4A4A;
+  max-width: 680px;
+  margin: 0 auto 36px;
+  font-weight: 400;
+}
+
+/* Dual Primary Buttons */
+.apollo-hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.apollo-btn-black {
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid #111111;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.apollo-btn-black:hover {
+  background: #262626;
+  border-color: #262626;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.apollo-btn-gray {
+  background: #F0F0EE;
+  color: #1A1A1A;
+  border: 1px solid #E2E2DE;
+  border-radius: 8px;
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.apollo-btn-gray:hover {
+  background: #E5E5E1;
+  border-color: #D5D5CE;
+}
+
+.apollo-no-credit {
+  font-size: 13px;
+  color: #6A6A65;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 28px;
+  font-weight: 450;
+}
+.apollo-check-icon {
+  width: 14px;
+  height: 14px;
+  color: #16A34A;
+}
+
+/* Inline Email / Prompt Form */
+.apollo-hero-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+.apollo-hero-input {
+  flex: 1;
+  padding: 13px 18px;
+  border-radius: 8px;
+  border: 1px solid #D6D6D0;
+  background: #FFFFFF;
+  font-size: 14.5px;
+  color: #1A1A1A;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.apollo-hero-input:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+.apollo-hero-input::placeholder {
+  color: #8C8C87;
+}
+
+.apollo-btn-form-lime {
+  background: #D8EE32;
+  border: 1px solid #C8DE25;
+  color: #111111;
+  border-radius: 8px;
+  padding: 13px 24px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.apollo-btn-form-lime:hover {
+  background: #CEE424;
+  box-shadow: 0 4px 12px rgba(216, 238, 50, 0.4);
+}
+
+.apollo-divider-or {
+  font-size: 13px;
+  color: #8C8C87;
+  margin: 12px 0 16px;
+  position: relative;
+  display: inline-block;
+  padding: 0 12px;
+}
+
+/* SSO Buttons */
+.apollo-sso-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.apollo-sso-btn {
+  background: #FFFFFF;
+  border: 1px solid #D6D6D0;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #1A1A1A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.apollo-sso-btn:hover {
+  background: #F7F7F5;
+  border-color: #B8B8B0;
+}
+
+.apollo-disclaimer {
+  font-size: 12px;
+  color: #8C8C87;
+  margin: 0 auto;
+  max-width: 480px;
+}
+.apollo-disclaimer a {
+  color: #555550;
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   ENTERPRISE LOGOS STRIP
+   -------------------------------------------------------------------------- */
+.apollo-logos-section {
+  padding: 50px 24px 60px;
+  border-top: 1px solid #F0F0EC;
+  border-bottom: 1px solid #F0F0EC;
+  background: #FAFAF8;
+  text-align: center;
+}
+.apollo-logos-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8C8C87;
+  margin-bottom: 24px;
+}
+.apollo-logos-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.apollo-logo-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #111111;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.apollo-logo-sub {
+  font-weight: 400;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   APOLLO PRODUCT SHOWCASE (2-COLUMN PROFILE / FEATURE CARD)
+   Exact match to Apollo.io "Run your go-to-market, your way" section
+   -------------------------------------------------------------------------- */
+.apollo-showcase-section {
+  padding: 90px 32px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.apollo-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Left Card: Mac-style Interface Window */
+.apollo-mockup-frame {
+  background: #EFEFEA;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E2E2DC;
+}
+
+.apollo-mac-dots {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+.apollo-mac-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #C8C8C0;
+}
+
+.apollo-profile-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid #ECECE6;
+}
+
+.apollo-profile-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F0F0EC;
+}
+.apollo-tab-pill {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.apollo-tab-pill.active {
+  background: #222222;
+  color: #FFFFFF;
+}
+.apollo-tab-pill.inactive {
+  background: #F7F7F5;
+  color: #666660;
+}
+
+.apollo-person-header {
+  margin-bottom: 20px;
+}
+.apollo-person-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.apollo-person-role {
+  font-size: 13px;
+  color: #666660;
+}
+
+/* Apollo 3-Button Action Row */
+.apollo-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  background: #F9F9F7;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ECECE6;
+  margin-bottom: 20px;
+}
+.apollo-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px 4px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.apollo-action-item:hover {
+  background: #FFFFFF;
+}
+.apollo-action-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+.apollo-circle-lime {
+  background: #D8EE32;
+  color: #111111;
+}
+.apollo-circle-gray {
+  background: #EAEAE6;
+  color: #444440;
+}
+.apollo-circle-dark {
+  background: #222222;
+  color: #FFFFFF;
+}
+.apollo-action-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #333330;
+}
+
+/* Context / Citation Box in Card */
+.apollo-context-preview {
+  background: #FAFAF8;
+  border: 1px solid #ECECE6;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.apollo-context-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8C8C87;
+  margin-bottom: 8px;
+}
+.apollo-context-text {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #222222;
+  margin-bottom: 8px;
+}
+.apollo-citation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  color: #166534;
+}
+
+/* Right Side: Editorial Feature Description */
+.apollo-feature-content {
+  padding-left: 10px;
+}
+.apollo-feature-headline {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(34px, 4.2vw, 52px);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin-bottom: 20px;
+}
+.apollo-feature-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4A4A4A;
+  margin-bottom: 32px;
+}
+
+.apollo-bullets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.apollo-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.apollo-bullet-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.apollo-bullet-text {
+  font-size: 15px;
+  color: #222222;
+  line-height: 1.5;
+}
+.apollo-bullet-link {
+  font-weight: 600;
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE RAG PLAYGROUND STRIP
+   -------------------------------------------------------------------------- */
+.apollo-sim-section {
+  background: #F7F7F5;
+  padding: 80px 24px;
+  border-top: 1px solid #EBEBE7;
+  border-bottom: 1px solid #EBEBE7;
+}
+.apollo-sim-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  text-align: center;
+}
+.apollo-sim-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(32px, 3.8vw, 46px);
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 14px;
+}
+.apollo-sim-sub {
+  font-size: 16px;
+  color: #555550;
+  max-width: 600px;
+  margin: 0 auto 36px;
+}
+
+.apollo-sim-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E2DC;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-align: left;
+}
+.apollo-sim-header {
+  padding: 14px 20px;
+  background: #FAFAF8;
+  border-bottom: 1px solid #ECECE6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.apollo-sim-tab-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.apollo-sim-status {
+  font-size: 12px;
+  color: #16A34A;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.apollo-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16A34A;
+}
+
+.apollo-sim-prompts {
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #ECECE6;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+.apollo-sim-chip {
+  background: #F7F7F5;
+  border: 1px solid #E0E0DA;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #444440;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.apollo-sim-chip:hover,
+.apollo-sim-chip.active {
+  background: #111111;
+  border-color: #111111;
+  color: #FFFFFF;
+}
+
+.apollo-sim-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.apollo-sim-bubble-user {
+  background: #F7F7F5;
+  border: 1px solid #E8E8E2;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 14.5px;
+  color: #111111;
+  max-width: 80%;
+  font-weight: 500;
+}
+.apollo-sim-bubble-ai {
+  background: #FFFFFF;
+  border: 1px solid #E2E2DC;
+  border-left: 4px solid #D8EE32;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+.apollo-sim-ai-name {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666660;
+  margin-bottom: 6px;
+}
+.apollo-sim-ai-answer {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #222222;
+  margin-bottom: 12px;
+}
+.apollo-sim-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 10px;
+  border-top: 1px solid #F0F0EB;
+  font-size: 12px;
+  color: #666660;
+  font-family: var(--font-mono, monospace);
+  flex-wrap: wrap;
+}
+.apollo-sim-telemetry-val {
+  color: #111111;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   3-COLUMN FEATURE CARDS
+   -------------------------------------------------------------------------- */
+.apollo-cards-section {
+  padding: 90px 24px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.apollo-cards-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.apollo-cards-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 12px;
+}
+.apollo-cards-sub {
+  font-size: 16px;
+  color: #555550;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.apollo-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+.apollo-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5DF;
+  border-radius: 14px;
+  padding: 32px 28px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.apollo-card:hover {
+  transform: translateY(-4px);
+  border-color: #C0C0B8;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+}
+.apollo-card-badge {
+  display: inline-block;
+  background: #F7F7F5;
+  border: 1px solid #E5E5DF;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #4A4A4A;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+.apollo-card-h3 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.apollo-card-p {
+  font-size: 14.5px;
+  color: #555550;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.apollo-card-action {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.15s;
+}
+.apollo-card:hover .apollo-card-action {
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   LIVE METRICS STRIP
+   -------------------------------------------------------------------------- */
+.apollo-metrics-strip {
+  background: #F7F7F5;
+  border-top: 1px solid #EBEBE7;
+  border-bottom: 1px solid #EBEBE7;
+  padding: 50px 24px;
+}
+.apollo-metrics-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1040px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.apollo-metric-box {
+  text-align: center;
+}
+.apollo-metric-number {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(38px, 4.5vw, 54px);
+  font-weight: 500;
+  color: #111111;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.apollo-metric-label {
+  font-size: 13.5px;
+  color: #666660;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   BOTTOM CTA SECTION
+   -------------------------------------------------------------------------- */
+.apollo-cta-section {
+  padding: 100px 24px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.apollo-cta-h2 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 500;
+  color: #111111;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.apollo-cta-p {
+  font-size: 17px;
+  color: #555550;
+  margin-bottom: 32px;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.apollo-footer {
+  border-top: 1px solid #ECECE8;
+  padding: 40px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+  font-size: 13px;
+  color: #777770;
+}
+.apollo-footer-links {
+  display: flex;
+  gap: 24px;
+}
+.apollo-footer-link {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #555550;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.apollo-footer-link:hover {
+  color: #111111;
+}
+
+/* --------------------------------------------------------------------------
+   MEGHA SAHU — CREATOR & ARCHITECT SPOTLIGHT SECTION
+   (Apollo.io warm stone editorial canvas, faint BUILDER watermark,
+   portrait card with upload trigger, bio quote, track record matrix, and CTAs)
+   -------------------------------------------------------------------------- */
+.apollo-spotlight-section {
+  background-color: #ECECE7;
+  padding: 85px 32px 95px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid #DFDFD8;
+  border-bottom: 1px solid #DFDFD8;
+}
+.apollo-spotlight-watermark {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(120px, 18vw, 280px);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.035);
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 0.85;
+  z-index: 1;
+}
+.apollo-spotlight-container {
+  max-width: 1060px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.apollo-spotlight-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.apollo-spotlight-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666660;
+  background: #E2E2DC;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+.apollo-spotlight-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(34px, 4.5vw, 48px);
+  font-weight: 500;
+  color: #111111;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.apollo-spotlight-subtitle {
+  font-size: 16px;
+  color: #555550;
+  margin-top: 6px;
+}
+
+/* Master Spotlight Card */
+.megha-card {
+  background: #FFFFFF;
+  border: 1px solid #DCDCD4;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  padding: 38px 42px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 44px;
+  align-items: start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.megha-card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.09);
+}
+
+/* Left Column: Portrait & Identity */
+.megha-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.megha-photo-frame {
+  width: 220px;
+  height: 220px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #E8E8E2;
+  position: relative;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-bottom: 18px;
+}
+.megha-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.megha-photo-frame:hover .megha-photo-img {
+  transform: scale(1.04);
+}
+.megha-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.68);
+  backdrop-filter: blur(2px);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: 12px;
+}
+.megha-photo-frame:hover .megha-photo-overlay {
+  opacity: 1;
+}
+.megha-name {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.megha-role {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #555550;
+  margin-bottom: 14px;
+}
+.megha-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #D8EE32;
+  color: #111111;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+}
+.megha-change-btn {
+  background: #F4F4F0;
+  border: 1px solid #D6D6CE;
+  color: #111111;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.megha-change-btn:hover {
+  background: #111111;
+  color: #FFFFFF;
+  border-color: #111111;
+}
+
+/* Right Column: Story & Track Record */
+.megha-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.megha-quote-box {
+  position: relative;
+  padding-left: 20px;
+  border-left: 3.5px solid #D8EE32;
+  margin-bottom: 24px;
+}
+.megha-quote {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(20px, 2.3vw, 24px);
+  font-style: italic;
+  font-weight: 400;
+  color: #111111;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+/* Track Record Grid */
+.megha-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.megha-stat-item {
+  background: #F9F9F7;
+  border: 1px solid #E6E6DF;
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: all 0.15s;
+}
+.megha-stat-item:hover {
+  background: #FFFFFF;
+  border-color: #C8C8BE;
+  transform: translateY(-2px);
+}
+.megha-stat-num {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.megha-stat-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #333330;
+  margin-bottom: 2px;
+}
+.megha-stat-sub {
+  font-size: 11.5px;
+  color: #777770;
+  line-height: 1.35;
+}
+
+/* Action Buttons */
+.megha-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.megha-btn-connect {
+  background: #D8EE32;
+  color: #111111;
+  border: 1px solid #C8DE25;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 2px 8px rgba(216, 238, 50, 0.35);
+}
+.megha-btn-connect:hover {
+  background: #CBE123;
+  transform: translateY(-1px);
+}
+.megha-btn-console {
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid #111111;
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.megha-btn-console:hover {
+  background: #2a2a2a;
+}
+
+@media (max-width: 900px) {
+  .megha-card {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 28px 24px;
+  }
+  .megha-photo-col {
+    align-items: center;
+  }
+  .apollo-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .apollo-nav-menu {
+    display: none;
+  }
+}

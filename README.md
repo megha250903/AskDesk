@@ -21,6 +21,50 @@ AskDesk is an enterprise customer support platform engineered to combine multi-t
 
 ---
 
+## 📸 Platform Demo & Visual Tour
+
+### 1. Apollo.io-Inspired Enterprise Homepage
+*Clean editorial B2B SaaS aesthetic (`#F7F7F5` & `#FFFFFF`), Newsreader display serif typography, Apollo lime (`#D8EE32`) primary CTAs, streamlined top navigation, and social proof.*
+
+![AskDesk Apollo Homepage](docs/images/homepage_hero.png)
+
+---
+
+### 2. Architect & Builder Spotlight: Megha Sahu
+*Dedicated spotlight highlighting Creator & Lead Architect Megha Sahu — Full Stack Developer with experience across 4+ companies and 20+ clients, building high-throughput web platforms and exploring AI systems.*
+
+![Megha Sahu Builder Spotlight](docs/images/megha_sahu_spotlight.png)
+
+---
+
+### 3. Grounded RAG Retrieval Playground
+*Interact with the AI assistant in real-time, inspect Qdrant cosine similarity scores, examine retrieved document chunks, and verify bracketed citation anchors.*
+
+![Grounded RAG Playground](docs/images/rag_playground.png)
+
+---
+
+### 4. Website Adoption & Live Interactive Embed Generator
+*Configure widget branding, welcome greetings, screen positioning, and color swatches. Test the embedded assistant in the live browser simulator, and copy one-line drop-in scripts for HTML, React / Next.js, Vue / Nuxt, or npm.*
+
+![Website Adoption & Embed Generator](docs/images/website_embed.png)
+
+---
+
+### 5. Knowledge Base & Vector Ingestion
+*Upload technical guides, PDFs, or Markdown policies with tenant isolation, 1536-dim vector embeddings, and chunk indexing status tracking.*
+
+![Knowledge Base & Ingestion](docs/images/knowledge_base.png)
+
+---
+
+### 6. AI Gateway Telemetry & Token Cost Accounting
+*Real-time token metrics, peak throughput accounting, sub-8ms P95 latencies with Redis exact-match caching, and low-cost Groq inference tracking.*
+
+![Gateway Telemetry & Cost Accounting](docs/images/gateway_analytics.png)
+
+---
+
 ## 🏗 Architecture
 
 ```mermaid
